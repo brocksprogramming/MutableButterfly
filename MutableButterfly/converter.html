@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MutableImage - Professional Converter</title>
+  <style>
+    :root {
+      --primary: #6200ee;
+      --secondary: #03dac6;
+      --bg: #f5f5f5;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+    h2 { color: var(--primary); margin-top: 0; text-align: center; }
+    
+    .upload-section {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .upload-section:hover { border-color: var(--primary); }
+    
+    label { display: block; margin: 15px 0 5px; font-weight: bold; font-size: 0.9em; }
+    
+    select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+
+    textarea { resize: vertical; height: 80px; }
+
+    .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    #convertBtn { background-color: var(--primary); color: white; }
+    #decodeBtn { background-color: #eee; color: #333; border: 1px solid #ccc; }
+    button:hover { opacity: 0.9; }
+
+    #resultArea {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e7f3ff;
+      border-left: 5px solid #2196f3;
+      display: none;
+      border-radius: 4px;
+    }
+    
+    #canvas { display: none; }
+    .footer { margin-top: 20px; font-size: 0.8em; color: #888; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>MutableImage</h2>
+    
+    <div id="dropZone" class="upload-section">
+      <p id="fileStatus">Click to select or drop an image</p>
+      <input type="file" id="imageInput" accept="image/*" style="display:none">
+    </div>
+
+    <label for="formatSelect">Target Format</label>
+    <select id="formatSelect">
+      <option value="image/png">PNG (Lossless - Required for Secrets)</option>
+      <option value="image/webp">WebP (Modern/Small)</option>
+      <option value="image/jpeg">JPEG (Standard Photo)</option>
+    </select>
+
+    <label for="secretInput">Secret Message to Hide (Encode)</label>
+    <textarea id="secretInput" placeholder="Enter text you want to hide in the pixel data..."></textarea>
+
+    <div class="btn-group">
+      <button id="convertBtn">Encode & Export</button>
+      <button id="decodeBtn">Read Secret</button>
+    </div>
+
+    <div id="resultArea">
+      <strong>Decoded Message:</strong>
+      <p id="decodedMessage"></p>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+  
+  <div class="footer">Local Processing • Zero Data Leaving Browser</div>
+
+  <script src="converter.js"></script>
+</body>
+</html>
